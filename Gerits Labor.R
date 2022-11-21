@@ -4,7 +4,7 @@ library(readr)
 
 #####################################################
 # Import of overnight stay data
-#The required data is saved in the form of *.xlsx sheets at https://www.statistik-nord.de/fileadmin/Dokumente/Statistische_Berichte/industrie__handel_und_dienstl/G_IV_1_m_S/G_IV_1-m1506_SH.xlsx 
+#The required data is available in the form of *.xlsx sheets at https://www.statistik-nord.de/fileadmin/Dokumente/Statistische_Berichte/industrie__handel_und_dienstl/G_IV_1_m_S/G_IV_1-m1506_SH.xlsx 
 #in this case for the month of June of the year 2015 indicated by "1506". In theory only this four digit code changes. For 78 of the 84 months
 #that we are interested in, this statement is true. More about that later. The conclusion drawn from this means: First we need to create a vector
 #containing all four digit "month-year-codes" for the desired months.
@@ -30,6 +30,7 @@ for (e in years)
 #of the 84 #cases only the lines 91-95 and 116-122 are needed. Lines 96-115 are only needed to catch the typo-sheets ¯\_(ツ)_/¯
 
 Uebernachtungen <- vector()
+Ankuenfte <- vector()
 for (e in JahrMonat) {
   filename <- paste("G_IV_1-m",e,"_SH.xlsx", sep = "")
   url <- paste(
@@ -39,6 +40,7 @@ for (e in JahrMonat) {
     curl::curl_download(url, filedest)
     xls <- read_excel(filedest, sheet = "T1_1")
     Uebernachtungen <- c(Uebernachtungen, xls[4][xls[1] == "02 Kiel"])
+    Ankuenfte <- c(Ankuenfte, xls[2][xls[1] == "02 Kiel"])
   } else {
     filename <- paste("G_IV_1-m",e,"_SH-.xlsx", sep = "")
     url <- paste(
@@ -60,11 +62,15 @@ for (e in JahrMonat) {
     curl::curl_download(url, filedest)
 #import only sheet "T1_1" from file "filename" into variable xls
     xls <- read_excel(filedest, sheet = "T1_1")
-#extract only overnight stays for kiel from xls and concatenate it with the former vector "Uebernachtungen"
-   #Uebernachtungen <- c(Uebernachtungen, xls[4][xls[1] == "02 Kiel"])
+#extract only overnight stays and arrivals for kiel from xls and concatenate it with the former vector "Uebernachtungen"
+   Uebernachtungen <- c(Uebernachtungen, xls[4][xls[1] == "02 Kiel"])
+   Ankuenfte <- c(Ankuenfte, xls[2][xls[1] == "02 Kiel"])
   }
 }
 #create common dataframe for "Uebernachtungen" and "JahrMonat"
-#Uebernachtungen <- data.frame("Monatscode"=JahrMonat, "Uebernachtungen"=Uebernachtungen)
+Tourrerismus <- data.frame("Monatscode"=JahrMonat, "Uebernachtungen"=Uebernachtungen, "Ankuenfte" = Ankuenfte)
+as.numeric(Tourrerismus$Uebernachtungen)
+as.numeric(Tourrerismus$Ankuenfte)
+Tourrerismus$Aufenthaltsdauer <- Tourrerismus$Uebernachtungen/Tourrerismus$Ankuenfte
 
 ####################################
