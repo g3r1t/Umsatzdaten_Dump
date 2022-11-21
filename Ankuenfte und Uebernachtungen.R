@@ -69,8 +69,15 @@ for (e in JahrMonat) {
 }
 #create common dataframe for "Uebernachtungen" and "JahrMonat"
 Tourrerismus <- data.frame("Monatscode"=JahrMonat, "Uebernachtungen"=Uebernachtungen, "Ankuenfte" = Ankuenfte)
-as.numeric(Tourrerismus$Uebernachtungen)
-as.numeric(Tourrerismus$Ankuenfte)
+Tourrerismus$Uebernachtungen <- as.numeric(Tourrerismus$Uebernachtungen)
+Tourrerismus$Ankuenfte <- as.numeric(Tourrerismus$Ankuenfte)
+# Korrektur von Ankünften, weiß der Fuchs warum
+Tourrerismus$Ankuenfte[Tourrerismus$Monatscode == 1905] <- 82098
+Tourrerismus$Ankuenfte[Tourrerismus$Monatscode == 1504] <- 48844
+Tourrerismus$Ankuenfte[Tourrerismus$Monatscode == 1610] <- 56974
+
 Tourrerismus$Aufenthaltsdauer <- Tourrerismus$Uebernachtungen/Tourrerismus$Ankuenfte
+
+write.csv(Tourrerismus,"Ankuenfte und Uebernachtungen.csv", row.names = FALSE)
 
 ####################################
