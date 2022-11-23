@@ -1,4 +1,4 @@
-MESS_DATUM;Windspitze;Windgeschwindigkeit;Niederschlagsmenge;Niederschlagsform;Sonnenscheindauer;Bedeckungsgrad;Dampfdruck;Luftdruck;Temperatur;Relative_Feuchte;Max-Temperatur;Min_Temperatur;Min_Temperatur_Boden
+Datum;Windspitze;Windgeschwindigkeit;Niederschlagsmenge;Niederschlagsform;Sonnenscheindauer;Bedeckungsgrad;Dampfdruck;Luftdruck;Temperatur;Relative_Feuchte;Max-Temperatur;Min_Temperatur;Min_Temperatur_Boden
 01.07.2013;  12.4;   3.5;   0.3;4;6.000;   5.5;  14.8; 1010.60;   15.6;   84.00;   20.1;   11.5;    9.1
 02.07.2013;   8.0;   2.7;   0.1;4;8.500;   4.8;  12.0; 1011.00;   15.1;   72.00;   19.9;   10.9;    8.7
 03.07.2013;   6.3;   2.3;  10.2;4;2.000;   7.1;  17.4; 1006.50;   18.0;   84.00;   24.2;   15.1;   13.7
