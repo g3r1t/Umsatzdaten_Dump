@@ -4,7 +4,7 @@ years <- (2013:2019)# create vector for all years
 
 ferien <- data.frame(matrix(ncol = 8, nrow = 0))# create empty data frame with the dimensions needed to "rbind"
 
-#rename column names for rbind
+#rename column names according to data from "schulferien.org" in order to be able to "rbind"
 colnames(ferien) <- c("Bundesländer", "Winterferien", "Osterferien", "Pfingstferien", "Sommerferien",
        "Herbstferien", "Weihnachtsferien", "Jahr")
 
