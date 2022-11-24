@@ -1,4 +1,9 @@
 library(rvest)
+library(stringr)
+library(data.table)
+library(dplyr)
+
+
 
 years <- (2013:2019)# create vector for all years
 
@@ -21,3 +26,7 @@ for (e in years){
 
 ferien[] <- lapply(ferien, gsub, pattern = "*", replacement = "", fixed = TRUE)#trim *-chars
 ferien[] <- lapply(ferien, gsub, pattern = " ", replacement = "", fixed = TRUE)#trim spaces
+
+
+a <- ferien %>%
+  filter(str_detect(Osterferien, '+'))
