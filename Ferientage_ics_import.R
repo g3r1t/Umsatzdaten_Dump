@@ -4,7 +4,8 @@ Jahre <- as.character(2014:2019)#unfortunately data starts at 2014
 
 Bundesländer <- c("Baden-Wuerttemberg","Bayern","Berlin","Brandenburg","Bremen", "Hamburg",
                 "Hessen", "Mecklenburg-Vorpommern", "Niedersachsen", "Nordrhein-Westfalen",
-                "Rheinland-Pfalz", "Saarland", "Schleswig-Holstein", "Thueringen")
+                "Rheinland-Pfalz", "Saarland","Sachsen","Sachsen-Anhalt", "Schleswig-Holstein", 
+                "Thueringen")
 
 #create dataframe with the right dimensions for the rbind later on
 ferien <- data.frame(matrix(ncol = 7, nrow = 0))
