@@ -1,5 +1,6 @@
 library(calendar)
 library(dplyr)
+library(readr)
 
 Jahre <- as.character(2014:2019)#unfortunately data starts at 2014
 
@@ -49,13 +50,13 @@ for (b in Bundesländer){
     df <- filter(feiertage2013, Alle == 1 | feiertage2013[[b]])
     df$Bundesland <- b
     df <- select(df, Datum, Feiertag, Bundesland)
-    rbind(feiertage, df)
+    feiertage <- rbind(feiertage, df)
   }
   else {
     df <- filter(feiertage2013, Alle == 1)
     df$Bundesland <- b
     df <- select(df, Datum, Feiertag, Bundesland)
-    rbind(feiertage, df)
+    feiertage <- rbind(feiertage, df)
   }
 }
 
