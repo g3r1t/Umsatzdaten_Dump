@@ -1030,8 +1030,6 @@
 BW, BY, ST","Baden-Wuerttemberg"
 2013-03-29,"Karfreitag 
 alle BL","Baden-Wuerttemberg"
-2013-03-30,"Karsamstag 
-alle BL","Baden-Wuerttemberg"
 2013-04-01,"Ostermontag 
 alle BL","Baden-Wuerttemberg"
 2013-05-01,"Tag der Arbeit 
@@ -1042,10 +1040,9 @@ alle BL","Baden-Wuerttemberg"
 alle BL","Baden-Wuerttemberg"
 2013-05-30,"Fronleichnam 
 BW, BY, HE, NW, RP, SL","Baden-Wuerttemberg"
+2013-10-03,"Tag der deutschen Einheit alle BL","Baden-Wuerttemberg"
 2013-11-01,"Allerheiligen 
 BW, BY, NW, RP, SL","Baden-Wuerttemberg"
-2013-11-11,"Martinstag 
-alle BL","Baden-Wuerttemberg"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Baden-Wuerttemberg"
 2013-12-26,"2. Weihnachtsfeiertag 
@@ -1054,8 +1051,6 @@ alle BL","Baden-Wuerttemberg"
 2013-01-06,"Heilige Drei Könige 
 BW, BY, ST","Bayern"
 2013-03-29,"Karfreitag 
-alle BL","Bayern"
-2013-03-30,"Karsamstag 
 alle BL","Bayern"
 2013-04-01,"Ostermontag 
 alle BL","Bayern"
@@ -1069,18 +1064,15 @@ alle BL","Bayern"
 BW, BY, HE, NW, RP, SL","Bayern"
 2013-08-15,"Mariä Himmelfahrt * 
 BY, SL","Bayern"
+2013-10-03,"Tag der deutschen Einheit alle BL","Bayern"
 2013-11-01,"Allerheiligen 
 BW, BY, NW, RP, SL","Bayern"
-2013-11-11,"Martinstag 
-alle BL","Bayern"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Bayern"
 2013-12-26,"2. Weihnachtsfeiertag 
 alle BL","Bayern"
 2013-01-01,"Neujahr alle BL","Berlin"
 2013-03-29,"Karfreitag 
-alle BL","Berlin"
-2013-03-30,"Karsamstag 
 alle BL","Berlin"
 2013-04-01,"Ostermontag 
 alle BL","Berlin"
@@ -1090,16 +1082,13 @@ alle BL","Berlin"
 alle BL","Berlin"
 2013-05-20,"Pfingstmontag 
 alle BL","Berlin"
-2013-11-11,"Martinstag 
-alle BL","Berlin"
+2013-10-03,"Tag der deutschen Einheit alle BL","Berlin"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Berlin"
 2013-12-26,"2. Weihnachtsfeiertag 
 alle BL","Berlin"
 2013-01-01,"Neujahr alle BL","Brandenburg"
 2013-03-29,"Karfreitag 
-alle BL","Brandenburg"
-2013-03-30,"Karsamstag 
 alle BL","Brandenburg"
 2013-03-31,"Ostersonntag 
 BB","Brandenburg"
@@ -1113,10 +1102,9 @@ alle BL","Brandenburg"
 BB","Brandenburg"
 2013-05-20,"Pfingstmontag 
 alle BL","Brandenburg"
+2013-10-03,"Tag der deutschen Einheit alle BL","Brandenburg"
 2013-10-31,"Reformationstag * 
 BB, MV, SN, ST, TH","Brandenburg"
-2013-11-11,"Martinstag 
-alle BL","Brandenburg"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Brandenburg"
 2013-12-26,"2. Weihnachtsfeiertag 
@@ -1124,8 +1112,6 @@ alle BL","Brandenburg"
 2013-01-01,"Neujahr alle BL","Bremen"
 2013-03-29,"Karfreitag 
 alle BL","Bremen"
-2013-03-30,"Karsamstag 
-alle BL","Bremen"
 2013-04-01,"Ostermontag 
 alle BL","Bremen"
 2013-05-01,"Tag der Arbeit 
@@ -1134,8 +1120,7 @@ alle BL","Bremen"
 alle BL","Bremen"
 2013-05-20,"Pfingstmontag 
 alle BL","Bremen"
-2013-11-11,"Martinstag 
-alle BL","Bremen"
+2013-10-03,"Tag der deutschen Einheit alle BL","Bremen"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Bremen"
 2013-12-26,"2. Weihnachtsfeiertag 
@@ -1143,8 +1128,6 @@ alle BL","Bremen"
 2013-01-01,"Neujahr alle BL","Hamburg"
 2013-03-29,"Karfreitag 
 alle BL","Hamburg"
-2013-03-30,"Karsamstag 
-alle BL","Hamburg"
 2013-04-01,"Ostermontag 
 alle BL","Hamburg"
 2013-05-01,"Tag der Arbeit 
@@ -1153,16 +1136,13 @@ alle BL","Hamburg"
 alle BL","Hamburg"
 2013-05-20,"Pfingstmontag 
 alle BL","Hamburg"
-2013-11-11,"Martinstag 
-alle BL","Hamburg"
+2013-10-03,"Tag der deutschen Einheit alle BL","Hamburg"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Hamburg"
 2013-12-26,"2. Weihnachtsfeiertag 
 alle BL","Hamburg"
 2013-01-01,"Neujahr alle BL","Hessen"
 2013-03-29,"Karfreitag 
-alle BL","Hessen"
-2013-03-30,"Karsamstag 
 alle BL","Hessen"
 2013-04-01,"Ostermontag 
 alle BL","Hessen"
@@ -1174,8 +1154,7 @@ alle BL","Hessen"
 alle BL","Hessen"
 2013-05-30,"Fronleichnam 
 BW, BY, HE, NW, RP, SL","Hessen"
-2013-11-11,"Martinstag 
-alle BL","Hessen"
+2013-10-03,"Tag der deutschen Einheit alle BL","Hessen"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Hessen"
 2013-12-26,"2. Weihnachtsfeiertag 
@@ -1183,8 +1162,6 @@ alle BL","Hessen"
 2013-01-01,"Neujahr alle BL","Mecklenburg-Vorpommern"
 2013-03-29,"Karfreitag 
 alle BL","Mecklenburg-Vorpommern"
-2013-03-30,"Karsamstag 
-alle BL","Mecklenburg-Vorpommern"
 2013-04-01,"Ostermontag 
 alle BL","Mecklenburg-Vorpommern"
 2013-05-01,"Tag der Arbeit 
@@ -1193,10 +1170,9 @@ alle BL","Mecklenburg-Vorpommern"
 alle BL","Mecklenburg-Vorpommern"
 2013-05-20,"Pfingstmontag 
 alle BL","Mecklenburg-Vorpommern"
+2013-10-03,"Tag der deutschen Einheit alle BL","Mecklenburg-Vorpommern"
 2013-10-31,"Reformationstag * 
 BB, MV, SN, ST, TH","Mecklenburg-Vorpommern"
-2013-11-11,"Martinstag 
-alle BL","Mecklenburg-Vorpommern"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Mecklenburg-Vorpommern"
 2013-12-26,"2. Weihnachtsfeiertag 
@@ -1204,8 +1180,6 @@ alle BL","Mecklenburg-Vorpommern"
 2013-01-01,"Neujahr alle BL","Niedersachsen"
 2013-03-29,"Karfreitag 
 alle BL","Niedersachsen"
-2013-03-30,"Karsamstag 
-alle BL","Niedersachsen"
 2013-04-01,"Ostermontag 
 alle BL","Niedersachsen"
 2013-05-01,"Tag der Arbeit 
@@ -1214,16 +1188,13 @@ alle BL","Niedersachsen"
 alle BL","Niedersachsen"
 2013-05-20,"Pfingstmontag 
 alle BL","Niedersachsen"
-2013-11-11,"Martinstag 
-alle BL","Niedersachsen"
+2013-10-03,"Tag der deutschen Einheit alle BL","Niedersachsen"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Niedersachsen"
 2013-12-26,"2. Weihnachtsfeiertag 
 alle BL","Niedersachsen"
 2013-01-01,"Neujahr alle BL","Nordrhein-Westfalen"
 2013-03-29,"Karfreitag 
-alle BL","Nordrhein-Westfalen"
-2013-03-30,"Karsamstag 
 alle BL","Nordrhein-Westfalen"
 2013-04-01,"Ostermontag 
 alle BL","Nordrhein-Westfalen"
@@ -1235,18 +1206,15 @@ alle BL","Nordrhein-Westfalen"
 alle BL","Nordrhein-Westfalen"
 2013-05-30,"Fronleichnam 
 BW, BY, HE, NW, RP, SL","Nordrhein-Westfalen"
+2013-10-03,"Tag der deutschen Einheit alle BL","Nordrhein-Westfalen"
 2013-11-01,"Allerheiligen 
 BW, BY, NW, RP, SL","Nordrhein-Westfalen"
-2013-11-11,"Martinstag 
-alle BL","Nordrhein-Westfalen"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Nordrhein-Westfalen"
 2013-12-26,"2. Weihnachtsfeiertag 
 alle BL","Nordrhein-Westfalen"
 2013-01-01,"Neujahr alle BL","Rheinland-Pfalz"
 2013-03-29,"Karfreitag 
-alle BL","Rheinland-Pfalz"
-2013-03-30,"Karsamstag 
 alle BL","Rheinland-Pfalz"
 2013-04-01,"Ostermontag 
 alle BL","Rheinland-Pfalz"
@@ -1258,18 +1226,15 @@ alle BL","Rheinland-Pfalz"
 alle BL","Rheinland-Pfalz"
 2013-05-30,"Fronleichnam 
 BW, BY, HE, NW, RP, SL","Rheinland-Pfalz"
+2013-10-03,"Tag der deutschen Einheit alle BL","Rheinland-Pfalz"
 2013-11-01,"Allerheiligen 
 BW, BY, NW, RP, SL","Rheinland-Pfalz"
-2013-11-11,"Martinstag 
-alle BL","Rheinland-Pfalz"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Rheinland-Pfalz"
 2013-12-26,"2. Weihnachtsfeiertag 
 alle BL","Rheinland-Pfalz"
 2013-01-01,"Neujahr alle BL","Saarland"
 2013-03-29,"Karfreitag 
-alle BL","Saarland"
-2013-03-30,"Karsamstag 
 alle BL","Saarland"
 2013-04-01,"Ostermontag 
 alle BL","Saarland"
@@ -1283,18 +1248,15 @@ alle BL","Saarland"
 BW, BY, HE, NW, RP, SL","Saarland"
 2013-08-15,"Mariä Himmelfahrt * 
 BY, SL","Saarland"
+2013-10-03,"Tag der deutschen Einheit alle BL","Saarland"
 2013-11-01,"Allerheiligen 
 BW, BY, NW, RP, SL","Saarland"
-2013-11-11,"Martinstag 
-alle BL","Saarland"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Saarland"
 2013-12-26,"2. Weihnachtsfeiertag 
 alle BL","Saarland"
 2013-01-01,"Neujahr alle BL","Sachsen"
 2013-03-29,"Karfreitag 
-alle BL","Sachsen"
-2013-03-30,"Karsamstag 
 alle BL","Sachsen"
 2013-04-01,"Ostermontag 
 alle BL","Sachsen"
@@ -1304,10 +1266,9 @@ alle BL","Sachsen"
 alle BL","Sachsen"
 2013-05-20,"Pfingstmontag 
 alle BL","Sachsen"
+2013-10-03,"Tag der deutschen Einheit alle BL","Sachsen"
 2013-10-31,"Reformationstag * 
 BB, MV, SN, ST, TH","Sachsen"
-2013-11-11,"Martinstag 
-alle BL","Sachsen"
 2013-11-20,"Buß- und Bettag 
 SN","Sachsen"
 2013-12-25,"1. Weihnachtsfeiertag 
@@ -1319,8 +1280,6 @@ alle BL","Sachsen"
 BW, BY, ST","Sachsen-Anhalt"
 2013-03-29,"Karfreitag 
 alle BL","Sachsen-Anhalt"
-2013-03-30,"Karsamstag 
-alle BL","Sachsen-Anhalt"
 2013-04-01,"Ostermontag 
 alle BL","Sachsen-Anhalt"
 2013-05-01,"Tag der Arbeit 
@@ -1329,10 +1288,9 @@ alle BL","Sachsen-Anhalt"
 alle BL","Sachsen-Anhalt"
 2013-05-20,"Pfingstmontag 
 alle BL","Sachsen-Anhalt"
+2013-10-03,"Tag der deutschen Einheit alle BL","Sachsen-Anhalt"
 2013-10-31,"Reformationstag * 
 BB, MV, SN, ST, TH","Sachsen-Anhalt"
-2013-11-11,"Martinstag 
-alle BL","Sachsen-Anhalt"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Sachsen-Anhalt"
 2013-12-26,"2. Weihnachtsfeiertag 
@@ -1340,8 +1298,6 @@ alle BL","Sachsen-Anhalt"
 2013-01-01,"Neujahr alle BL","Schleswig-Holstein"
 2013-03-29,"Karfreitag 
 alle BL","Schleswig-Holstein"
-2013-03-30,"Karsamstag 
-alle BL","Schleswig-Holstein"
 2013-04-01,"Ostermontag 
 alle BL","Schleswig-Holstein"
 2013-05-01,"Tag der Arbeit 
@@ -1350,8 +1306,7 @@ alle BL","Schleswig-Holstein"
 alle BL","Schleswig-Holstein"
 2013-05-20,"Pfingstmontag 
 alle BL","Schleswig-Holstein"
-2013-11-11,"Martinstag 
-alle BL","Schleswig-Holstein"
+2013-10-03,"Tag der deutschen Einheit alle BL","Schleswig-Holstein"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Schleswig-Holstein"
 2013-12-26,"2. Weihnachtsfeiertag 
@@ -1359,8 +1314,6 @@ alle BL","Schleswig-Holstein"
 2013-01-01,"Neujahr alle BL","Thueringen"
 2013-03-29,"Karfreitag 
 alle BL","Thueringen"
-2013-03-30,"Karsamstag 
-alle BL","Thueringen"
 2013-04-01,"Ostermontag 
 alle BL","Thueringen"
 2013-05-01,"Tag der Arbeit 
@@ -1369,8 +1322,7 @@ alle BL","Thueringen"
 alle BL","Thueringen"
 2013-05-20,"Pfingstmontag 
 alle BL","Thueringen"
-2013-11-11,"Martinstag 
-alle BL","Thueringen"
+2013-10-03,"Tag der deutschen Einheit alle BL","Thueringen"
 2013-12-25,"1. Weihnachtsfeiertag 
 alle BL","Thueringen"
 2013-12-26,"2. Weihnachtsfeiertag 

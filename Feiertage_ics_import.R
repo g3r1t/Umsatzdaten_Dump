@@ -60,4 +60,4 @@ for (b in Bundesländer){
   }
 }
 
-#write.csv(feiertage,"Feiertage.csv", row.names = FALSE)
+write.csv(feiertage,"Feiertage.csv", row.names = FALSE)
