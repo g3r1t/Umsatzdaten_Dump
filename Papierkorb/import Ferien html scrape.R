@@ -27,6 +27,17 @@ for (e in years){
 ferien[] <- lapply(ferien, gsub, pattern = "*", replacement = "", fixed = TRUE)#trim *-chars
 ferien[] <- lapply(ferien, gsub, pattern = " ", replacement = "", fixed = TRUE)#trim spaces
 
+Ferienarten <- c("Winterferien", "Osterferien", "Pfingstferien", "Sommerferien", "Herbstferien", "Weihnachtsferien") 
+bool <- as.logical(rep(0, each=112))
 
-a <- ferien %>%
-  filter(str_detect(Osterferien, '+'))
+for (f in Ferienarten){
+  b <- str_detect(ferien[[f]], fixed('.+'))
+  bool <- bool + b
+}
+
+bool[bool > 1] <- 1
+bool <- as.logical(bool)
+Handarbeit <- filter(ferien, bool)
+write.csv(Handarbeit)
+ferien <- ferien[-c(which(TRUE == bool)),]
+
