@@ -1,33 +1,33 @@
-﻿Feiertag;Datum;Column3;Alle;Baden-Wuerttemberg;Bayern;Sachsen-Anhalt;Brandenburg;Hessen;Nordrhein-Westfalen;Rheinland-Pfalz;Saarland;Mecklenburg-Vorpommern;Sachsen;Thüringen
-Neujahr alle BL;01.01.2013;alle BL;1;;;;;;;;;;;
+﻿Feiertag;Datum;Column3;Baden-Wuerttemberg;Bayern;Sachsen-Anhalt;Brandenburg;Hessen;Nordrhein-Westfalen;Rheinland-Pfalz;Saarland;Mecklenburg-Vorpommern;Sachsen;Thüringen;Niedersachsen;Bremen;Hamburg;Schleswig-Holstein;Berlin
+Neujahr alle BL;01.01.2013;alle BL;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
 "Heilige Drei Könige 
-BW, BY, ST";06.01.2013;BW, BY, ST;;1;1;1;;;;;;;;
+BW, BY, ST";06.01.2013;BW, BY, ST;1;1;1;;;;;;;;;;;;;
 "Karfreitag 
-alle BL";29.03.2013;alle BL;1;;;;;;;;;;;
+alle BL";29.03.2013;alle BL;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
 "Ostersonntag 
-BB";31.03.2013;BB;;;;;1;;;;;;;
+BB";31.03.2013;BB;;;;1;;;;;;;;;;;;
 "Ostermontag 
-alle BL";01.04.2013;alle BL;1;;;;;;;;;;;
+alle BL";01.04.2013;alle BL;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
 "Tag der Arbeit 
-alle BL";01.05.2013;alle BL;1;;;;;;;;;;;
+alle BL";01.05.2013;alle BL;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
 "Christi Himmelfahrt 
-alle BL";09.05.2013;alle BL;1;;;;;;;;;;;
+alle BL";09.05.2013;alle BL;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
 "Pfingstsonntag 
-BB";19.05.2013;BB;;;;;1;;;;;;;
+BB";19.05.2013;BB;;;;1;;;;;;;;;;;;
 "Pfingstmontag 
-alle BL";20.05.2013;alle BL;1;;;;;;;;;;;
+alle BL";20.05.2013;alle BL;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
 "Fronleichnam 
-BW, BY, HE, NW, RP, SL";30.05.2013;BW, BY, HE, NW, RP, SL;;1;1;;;1;1;1;1;;;
+BW, BY, HE, NW, RP, SL";30.05.2013;BW, BY, HE, NW, RP, SL;1;1;;;1;1;1;1;;;;;;;;
 "Mariä Himmelfahrt * 
-BY, SL";15.08.2013;BY, SL;;;1;;;;;;1;;;
-Tag der deutschen Einheit alle BL;03.10.2013;alle BL;1;;;;;;;;;;;
+BY, SL";15.08.2013;BY, SL;;1;;;;;;1;;;;;;;;
+Tag der deutschen Einheit alle BL;03.10.2013;alle BL;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
 "Reformationstag * 
-BB, MV, SN, ST, TH";31.10.2013;BB, MV, SN, ST, TH;;;;1;1;;;;;1;1;1
+BB, MV, SN, ST, TH";31.10.2013;BB, MV, SN, ST, TH;;;1;1;;;;;1;1;1;;;;;
 "Allerheiligen 
-BW, BY, NW, RP, SL";01.11.2013;BW, BY, NW, RP, SL;;1;1;;;;1;1;1;;;
+BW, BY, NW, RP, SL";01.11.2013;BW, BY, NW, RP, SL;1;1;;;;1;1;1;;;;;;;;
 "Buß- und Bettag 
-SN";20.11.2013;SN;;;;;;;;;;;1;
+SN";20.11.2013;SN;;;;;;;;;;1;;;;;;
 "1. Weihnachtsfeiertag 
-alle BL";25.12.2013;alle BL;1;;;;;;;;;;;
+alle BL";25.12.2013;alle BL;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
 "2. Weihnachtsfeiertag 
-alle BL";26.12.2013;alle BL;1;;;;;;;;;;;
+alle BL";26.12.2013;alle BL;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
