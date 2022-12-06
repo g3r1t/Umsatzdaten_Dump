@@ -34,8 +34,6 @@ for (b in Bundesländer) {
   feiertage <- left_join(feiertage, dfb, by = "Datum")
 }
 
-#feiertage$Datum <- as.Date(feiertage$Datum)
-
 #Import manually added data for 2013
 feiertage2013 <- read_delim("https://raw.githubusercontent.com/g3r1t/Umsatzdaten_Dump/main/Feiertage_2013.csv", 
                              delim = ";", escape_double = FALSE, trim_ws = TRUE,show_col_types = FALSE)
