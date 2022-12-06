@@ -16,9 +16,8 @@ colnames(ferien) <- "Datum"
 dir.create("icals_ferien")
 
 for (b in Bundesländer){
+  dfb <- data.frame(matrix(ncol = 1, nrow = 0))
   for (j in Jahre){
-b <- "Saarland"
-j <- "2015"
     filename <- paste("ferien_",b,"_",j , sep = "")
     url <- paste(
       "https://www.ferienwiki.de/exports/ferien/",j ,"/de/",b, sep = "")
@@ -28,31 +27,30 @@ j <- "2015"
     ics <- ic_dataframe(ical)
     colnames(ics)[3] <- "Beginn"
     colnames(ics)[4] <- "Ende"
-    colnames(dfj)[6] <- "Ferienart"
-    dfd <- data.frame(matrix(ncol = 1, nrow = 0))
-    for (e in as.numeric(row.names(dfj))) {
-    dfd <- rbind(dfd, data.frame(seq(as.Date(dfj$Beginn[e]), as.Date(dfj$Ende[e]), by="day")))
-    dfd$Ferienart <- dfj$Ferienart[e]
+    #colnames(ics)[6] <- "Ferienart"
+    dfj <- data.frame(matrix(ncol = 1, nrow = 0))
+    for (e in as.numeric(row.names(ics))) {
+      dfj <- rbind(dfj, data.frame(seq(as.Date(ics$Beginn[e]), as.Date(ics$Ende[e]), by="day")))
+      #dfd$Ferienart <- ics$Ferienart[e]
     }
-}
-}
-
-
-for (b in Bundesländer) {
-  dfb <- data.frame(matrix(ncol = 3, nrow = 0))
-  colnames(dfb) <- c("Beginn","Ende", b)
-  for (j in Jahre) {
-    filename <- paste("ferien_",b,"_",j , sep = "")
-    url <- paste(
-      "https://www.ferienwiki.de/exports/ferien/",j ,"/de/",b, sep = "")
-    filedest <- paste("icals_feiertage/", filename, sep = "")
-    curl::curl_download(url, filedest)
-    ical <- readLines(filedest)
-    dfj <- ic_dataframe(ical)
-    dfj[[b]] <- 1
-    colnames(dfj)[3] <- "Datum"
-    dfj <- dfj[,-c(1,2,4,5,6)]#drop redundant columns
     dfb <- rbind(dfb, dfj)
   }
-  feiertage <- left_join(ferien, dfb, by = "Datum")
+  dfb[[b]] <- 1
+  colnames(dfb)[1] <- "Datum"
+  ferien <- left_join(ferien, dfb, by = "Datum")
 }
+
+Ferientage_2013 <- read_delim("https://raw.githubusercontent.com/g3r1t/Umsatzdaten_Dump/main/Ferientage_2013.csv", 
+                              delim = ";", escape_double = FALSE, trim_ws = TRUE, show_col_types = FALSE)
+
+colnames(Ferientage_2013)[1] <- "Datum"
+
+Ferientage_2013$Datum <- as.Date(Ferientage_2013$Datum, "%d.%m.%Y")
+
+ferien <- rbind(ferien, Ferientage_2013)
+
+ferien <- ferien[rowSums(is.na(ferien)) != 16,]
+
+ferien[is.na(ferien)] <- 0
+
+write.csv(ferien,"Ferien.csv", row.names = FALSE)
