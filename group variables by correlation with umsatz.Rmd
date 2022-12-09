@@ -58,10 +58,13 @@ Verteilung <- rbind(a, c)
 
 #Verteilung <- Verteilung[order(Verteilung$Wettercode),]
 
-ggplot(Verteilung, aes(x=order(Wettercode), y=frequency, color=type)) + 
-    geom_point(size=2)
-    scale_x_continuous(breaks = c(seq(0,100, by=3)) +
-                       labels = c(seq(0,100, by=3)))
+ggplot(Verteilung, aes(x=as.factor(order(Wettercode)), y=frequency, color=type)) + 
+    geom_point(size=2, position = position_dodge(width = 0.5)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5))+
+    facet_wrap(~type, ncol = 1)
+
+    #scale_x_continuous(breaks = c(seq(0,100, by=3)))
+    #scale_y_continuous(limits = c(3, 300))
 
 
 
