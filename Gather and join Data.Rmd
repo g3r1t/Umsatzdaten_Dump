@@ -92,6 +92,20 @@ colnames(weather_codes)[1] <- "Wettercode"#rename first column to for left_join 
 
 full_Dataset <- left_join(full_Dataset, weather_codes, by = "Wettercode")
 
+#Group Weathercodes
+full_Dataset$Wettergruppe[full_Dataset$Wettercode <= 3] <- "?Bewölkung"
+full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 4 & full_Dataset$Wettercode <= 9] <- "Dunst, Rauch, Staub oder Sand"
+full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 10 & full_Dataset$Wettercode <= 19] <- "Trockenereignisse"
+full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 20 & full_Dataset$Wettercode <= 29] <- "Ereignisse der letzten Stunde, aber nicht zur Beobachtungszeit"
+full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 30 & full_Dataset$Wettercode <= 39] <- "Staubsturm, Sandsturm, Schneefegen oder -treiben"
+full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 40 & full_Dataset$Wettercode <= 49] <- "Nebel oder Eisnebel"
+full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 50 & full_Dataset$Wettercode <= 59] <- "Sprühregen"
+full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 60 & full_Dataset$Wettercode <= 69] <- "Regen"
+full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 70 & full_Dataset$Wettercode <= 79] <- "Schnee"
+full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 80 & full_Dataset$Wettercode <= 89] <- "Schauer"
+full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 90 & full_Dataset$Wettercode <= 99] <- "Gewitter"
+full_Dataset$Wettergruppe[is.na(full_Dataset$Wettercode)] <- "NA"
+
 #Convert Dates to weekdays
 full_Dataset$Wochentag <- weekdays(full_Dataset$Datum)
 
