@@ -10,26 +10,13 @@ library(rvest)
 ```
 
 ```{r}
-umsatzdaten <- read_csv("https://raw.githubusercontent.com/opencampus-sh/einfuehrung-in-data-science-und-ml/main/umsatzdaten_gekuerzt.csv")
+full_Dataset <- read_csv("https://raw.githubusercontent.com/g3r1t/Umsatzdaten_Dump/main/full_Dataset.csv")
 
 #Gesamtumsätze pro Datum aggregieren
-data <- aggregate(umsatzdaten$Umsatz, by=list(umsatzdaten$Datum), FUN=sum)
+data <- aggregate(full_Dataset$Umsatz, by=list(full_Dataset$Datum), FUN=sum)
 colnames(data) <- c("Datum", "Tagesumsatz")
 
-weather <- read_csv("https://raw.githubusercontent.com/opencampus-sh/einfuehrung-in-data-science-und-ml/main/wetter.csv", show_col_types = FALSE)
 
-#import and join weather codes
-webpage <- read_html(paste("http://www.seewetter-kiel.de/seewetter/daten_symbole.htm")) #read html page
-weather_codes <- html_table(webpage, trim = TRUE)#turn all html-tables into a list of table-DFs
-weather_codes <- weather_codes[[1]]# select first element of list of DFs
-
-weather_codes <- weather_codes[-1]#drop first column
-
-colnames(weather_codes)[1] <- "Wettercode"#rename first column to for left_join with full_Dataset
-
-weather <- left_join(weather, weather_codes, by = "Wettercode")
-
-data <- left_join(data, weather, by = "Datum")
 
 split <- mean(data$Tagesumsatz)
 
@@ -43,25 +30,24 @@ medium_turnover_weathercodes <- data$Wettercode[data$Tagesumsatz < high_split & 
 
 low_turnover_weathercodes <- data$Wettercode[data$Tagesumsatz <= low_split]
 
-a <- as.data.frame(table(high_turnover_weathercodes))
-colnames(a) <- c("Wettercode", "frequency")
-a$type <- "high"
-b <- as.data.frame(table(medium_turnover_weathercodes))
-colnames(b) <- c("Wettercode", "frequency")
-b$type <- "medium"
-c <- as.data.frame(table(low_turnover_weathercodes))
-colnames(c) <- c("Wettercode", "frequency")
-c$type <- "low"
+#a <- as.data.frame(table(high_turnover_weathercodes))
+#colnames(a) <- c("Wettercode", "frequency")
+#a$type <- "high"
+#b <- as.data.frame(table(medium_turnover_weathercodes))
+#colnames(b) <- c("Wettercode", "frequency")
+#b$type <- "medium"
+#c <- as.data.frame(table(low_turnover_weathercodes))
+#colnames(c) <- c("Wettercode", "frequency")
+#c$type <- "low"
 
-a <- rbind(a, b)
-Verteilung <- rbind(a, c)
+#a <- rbind(a, b)
+#Verteilung <- rbind(a, c)
 
 #Verteilung <- Verteilung[order(Verteilung$Wettercode),]
 
-ggplot(Verteilung, aes(x=as.factor(order(Wettercode)), y=frequency, color=type)) + 
-    geom_point(size=2, position = position_dodge(width = 0.5)) +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5))+
-    facet_wrap(~type, ncol = 1)
+ggplot(full_Dataset, aes(x=as.factor(Wettergruppe), y=Umsatz, color=Warenname)) + 
+    geom_point(size=2, position = position_dodge(width = 0.5)) 
+    #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5))
 
     #scale_x_continuous(breaks = c(seq(0,100, by=3)))
     #scale_y_continuous(limits = c(3, 300))

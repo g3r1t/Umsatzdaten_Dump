@@ -104,7 +104,7 @@ full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 60 & full_Dataset$Wettercod
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 70 & full_Dataset$Wettercode <= 79] <- "Schnee"
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 80 & full_Dataset$Wettercode <= 89] <- "Schauer"
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 90 & full_Dataset$Wettercode <= 99] <- "Gewitter"
-full_Dataset$Wettergruppe[is.na(full_Dataset$Wettercode)] <- "NA"
+full_Dataset$Wettergruppe[is.na(full_Dataset$Wettercode)] <- "Nischt"
 
 #Convert Dates to weekdays
 full_Dataset$Wochentag <- weekdays(full_Dataset$Datum)
