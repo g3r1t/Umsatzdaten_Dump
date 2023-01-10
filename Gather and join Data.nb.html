@@ -1899,20 +1899,16 @@ full_Dataset$Wochenende[full_Dataset$Wochentag == &quot;Samstag&quot; | full_Dat
 <!-- rnb-output-begin eyJkYXRhIjoiV2FybnVuZzogVW5rbm93biBvciB1bmluaXRpYWxpc2VkIGNvbHVtbjogYFdvY2hlbmVuZGVgLlxuIn0= -->
 <pre><code>Warnung: Unknown or uninitialised column: `Wochenende`.</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZnVsbF9EYXRhc2V0JFdvY2hlbmVuZGVbZnVsbF9EYXRhc2V0JFdvY2hlbnRhZyAhPSBcIlNhbXN0YWdcIiAmIGZ1bGxfRGF0YXNldCRXb2NoZW50YWcgIT0gXCJTb25udGFnXCJdIDwtIDBcblxuI0FkZCB3aW5kY2hpbGwgVGVtcChodHRwczovL2RlLndpa2lwZWRpYS5vcmcvd2lraS9XaW5kY2hpbGwpXG5mdWxsX0RhdGFzZXQkV2luZGNoaWxsIDwtIDEzLjEyICsgMC42MjE1ICogZnVsbF9EYXRhc2V0JFRlbXBlcmF0dXIueCArICgwLjM5NjUgKiBmdWxsX0RhdGFzZXQkVGVtcGVyYXR1ci54IC0gMTEuMzcpICogKChmdWxsX0RhdGFzZXQkV2luZGdlc2Nod2luZGlna2VpdC54KjM2MDApLzEwMDApKiowLjE2XG5cbmZ1bGxfRGF0YXNldCA8LSBmaWx0ZXIoZnVsbF9EYXRhc2V0LCBEYXR1bSA+PSAyMDEzLTA3LTAxKVxuXG53cml0ZS5jc3YoZnVsbF9EYXRhc2V0LCBcImZ1bGxfRGF0YXNldC5jc3ZcIiwgcm93Lm5hbWVzID0gRkFMU0UpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZnVsbF9EYXRhc2V0JFdvY2hlbmVuZGVbZnVsbF9EYXRhc2V0JFdvY2hlbnRhZyAhPSBcIlNhbXN0YWdcIiAmIGZ1bGxfRGF0YXNldCRXb2NoZW50YWcgIT0gXCJTb25udGFnXCJdIDwtIDBcblxuI0FkZCB3aW5kY2hpbGwgVGVtcChodHRwczovL2RlLndpa2lwZWRpYS5vcmcvd2lraS9XaW5kY2hpbGwpXG5mdWxsX0RhdGFzZXQkV2luZGNoaWxsIDwtIDEzLjEyICsgMC42MjE1ICogZnVsbF9EYXRhc2V0JFRlbXBlcmF0dXIueCArICgwLjM5NjUgKiBmdWxsX0RhdGFzZXQkVGVtcGVyYXR1ci54IC0gMTEuMzcpICogKChmdWxsX0RhdGFzZXQkV2luZGdlc2Nod2luZGlna2VpdC54KjM2MDApLzEwMDApKiowLjE2XG5cbmZ1bGxfRGF0YXNldCA8LSBmaWx0ZXIoZnVsbF9EYXRhc2V0LCBEYXR1bSA+PSBcIjIwMTMtMDctMDFcIilcblxud3JpdGUuY3N2KGZ1bGxfRGF0YXNldCwgXCJmdWxsX0RhdGFzZXQuY3N2XCIsIHJvdy5uYW1lcyA9IEZBTFNFKVxuYGBgIn0= -->
 <pre class="r"><code>full_Dataset$Wochenende[full_Dataset$Wochentag != &quot;Samstag&quot; &amp; full_Dataset$Wochentag != &quot;Sonntag&quot;] &lt;- 0
 
 #Add windchill Temp(https://de.wikipedia.org/wiki/Windchill)
 full_Dataset$Windchill &lt;- 13.12 + 0.6215 * full_Dataset$Temperatur.x + (0.3965 * full_Dataset$Temperatur.x - 11.37) * ((full_Dataset$Windgeschwindigkeit.x*3600)/1000)**0.16
 
-full_Dataset &lt;- filter(full_Dataset, Datum &gt;= 2013-07-01)
+full_Dataset &lt;- filter(full_Dataset, Datum &gt;= &quot;2013-07-01&quot;)
 
 write.csv(full_Dataset, &quot;full_Dataset.csv&quot;, row.names = FALSE)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiV2FybnVuZzogY2Fubm90IG9wZW4gZmlsZSAnZnVsbF9EYXRhc2V0LmNzdic6IFBlcm1pc3Npb24gZGVuaWVkRXJyb3IgaW4gZmlsZShmaWxlLCBpZmVsc2UoYXBwZW5kLCBcImFcIiwgXCJ3XCIpKSA6IFxuICBjYW5ub3Qgb3BlbiB0aGUgY29ubmVjdGlvblxuIn0= -->
-<pre><code>Warnung: cannot open file &#39;full_Dataset.csv&#39;: Permission deniedError in file(file, ifelse(append, &quot;a&quot;, &quot;w&quot;)) : 
-  cannot open the connection</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>ToDo: -VariablenTyp checken -&gt; z.B. KW=factor Variable -Temperatur
