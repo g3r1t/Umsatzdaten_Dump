@@ -133,6 +133,8 @@ full_Dataset$Wochenende[full_Dataset$Wochentag != "Samstag" & full_Dataset$Woche
 #Add windchill Temp(https://de.wikipedia.org/wiki/Windchill)
 full_Dataset$Windchill <- 13.12 + 0.6215 * full_Dataset$Temperatur.x + (0.3965 * full_Dataset$Temperatur.x - 11.37) * ((full_Dataset$Windgeschwindigkeit.x*3600)/1000)**0.16
 
+full_Dataset <- filter(full_Dataset, Datum >= "2013-07-01")
+
 write.csv(full_Dataset, "full_Dataset.csv", row.names = FALSE)
 ```
 
