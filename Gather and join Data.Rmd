@@ -138,7 +138,7 @@ full_Dataset$Monat <- month(full_Dataset$Datum, label = TRUE)
 #Add calendar week variable
 full_Dataset$KalenderWoche <- strftime(full_Dataset$Datum, format = "%V")
 
-#Add Wochenende create boolean vectors for all days == Samstag | Sonntag and for all day != Samstag & Sonntag
+#Add Wochenende create boolean value for all days == Samstag | Sonntag and for all day != Samstag & Sonntag
 full_Dataset$Wochenende[full_Dataset$Wochentag == "Samstag" | full_Dataset$Wochentag == "Sonntag"] <- 1
 full_Dataset$Wochenende[full_Dataset$Wochentag != "Samstag" & full_Dataset$Wochentag != "Sonntag"] <- 0
 
@@ -148,6 +148,8 @@ full_Dataset$Windchill <- 13.12 + 0.6215 * full_Dataset$Temperatur.x + (0.3965 *
 #drop data before there is data for "Umsatz" and after the "to-be-predicted time period
 full_Dataset <- filter(full_Dataset, Datum >= "2013-07-01")
 full_Dataset <- filter(full_Dataset, Datum <= "2019-07-30")
+full_Dataset <- subset(full_Dataset, Warengruppe != "NA")
+full_Dataset <- subset(full_Dataset, Warengruppe != "6") #No Saisonbrot in the predicted period
 
 write.csv(full_Dataset, "full_Dataset.csv", row.names = FALSE)
 ```
@@ -159,3 +161,4 @@ ToDo:
 -Saisonbrot gibt es nur von Oktober bis Januar
 -Feiertage anders einbinden, jede Bundesland in einer Spalte ist..... nervig und schadet den Kosten
 -fix singularities
+-Silvester is an outlier
