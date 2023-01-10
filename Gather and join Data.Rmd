@@ -39,20 +39,17 @@ Feiertage <- read_csv("https://raw.githubusercontent.com/g3r1t/Umsatzdaten_Dump/
 Ferien <- read_csv("https://raw.githubusercontent.com/g3r1t/Umsatzdaten_Dump/main/Ferien.csv", 
                     show_col_types = FALSE)
 
-#left join to keep all data points from turnoverdata and drop the redundant ones from kiwo
-full_Dataset <- left_join(turnover_data, kiwo, by = "Datum")
+#full join to keep all data points from turnoverdata and drop the redundant ones from kiwo
+full_Dataset <- full_join(turnover_data, kiwo, by = "Datum")
 
-#replaces all NAs of days where there is no KiWo with 0 and makes it a categorical boolean variable
-full_Dataset$KielerWoche[is.na(full_Dataset$KielerWoche)] <- 0
-
-#again left join to only keep data points with turnover
-full_Dataset <- left_join(full_Dataset, weather, by = "Datum")
+#again full join to only keep data points with turnover
+full_Dataset <- full_join(full_Dataset, weather, by = "Datum")
 
 #change "Datum"-column of weatherDWD to date-format
 weatherDWD$Datum <- as.Date(weatherDWD$Datum, "%d.%m.%Y")
 
-#leftjoin weather DWD and full_Dataset
-full_Dataset <- left_join(full_Dataset, weatherDWD, by="Datum")
+#fulljoin weather DWD and full_Dataset
+full_Dataset <- full_join(full_Dataset, weatherDWD, by="Datum")
 
 #replace NAs from weather with data from DWD
 full_Dataset$Temperatur.x[is.na(full_Dataset$Temperatur.x)] <- full_Dataset$Temperatur.y[is.na(full_Dataset$Temperatur.x)]
@@ -61,22 +58,25 @@ full_Dataset$Windgeschwindigkeit.x[is.na(full_Dataset$Windgeschwindigkeit.x)] <-
 
 full_Dataset$Bewoelkung[is.na(full_Dataset$Bewoelkung)] <- full_Dataset$Bedeckungsgrad[is.na(full_Dataset$Bewoelkung)]
 
-#Create Column Monatscode to left_join tourism data with full_Dataset
+#Create Column Monatscode to full_join tourism data with full_Dataset
 for (e in as.numeric(row.names(full_Dataset))) {
   full_Dataset$Monatscode[e] <- paste(
   (year(full_Dataset$Datum[e])-2000),
   formatC(month(full_Dataset$Datum[e]), width = 2, format = "d", flag = "0"), sep = "")
   }
 full_Dataset$Monatscode <- as.numeric(full_Dataset$Monatscode)
-full_Dataset <- left_join(full_Dataset, tourism, by="Monatscode")
+full_Dataset <- full_join(full_Dataset, tourism, by="Monatscode")
 
 #join holidays/Feiertage with dataset
-full_Dataset <- left_join(full_Dataset, Feiertage, by = "Datum")
+full_Dataset <- full_join(full_Dataset, Feiertage, by = "Datum")
 full_Dataset[c(26:41)][is.na(full_Dataset[c(26:41)])] <- 0 #set all NAs to zero for boolean variable
 
 #join school holidays/Ferien with dataset
-full_Dataset <- left_join(full_Dataset, Ferien, by = "Datum", suffix = c(".Feiertage", ".Ferien"))
+full_Dataset <- full_join(full_Dataset, Ferien, by = "Datum", suffix = c(".Feiertage", ".Ferien"))
 full_Dataset[c(42:57)][is.na(full_Dataset[c(42:57)])] <- 0 #set all NAs to zero for boolean variable
+
+#replaces all NAs of days where there is no KiWo with 0 and makes it a categorical boolean variable
+full_Dataset$KielerWoche[is.na(full_Dataset$KielerWoche)] <- 0
 ```
 
 
@@ -88,9 +88,9 @@ weather_codes <- weather_codes[[1]]# select first element of list of DFs
 
 weather_codes <- weather_codes[-1]#drop first column
 
-colnames(weather_codes)[1] <- "Wettercode"#rename first column to for left_join with full_Dataset
+colnames(weather_codes)[1] <- "Wettercode"#rename first column to for full_join with full_Dataset
 
-full_Dataset <- left_join(full_Dataset, weather_codes, by = "Wettercode")
+full_Dataset <- full_join(full_Dataset, weather_codes, by = "Wettercode")
 
 #Group Weathercodes
 full_Dataset$Wettergruppe[full_Dataset$Wettercode <= 3] <- "?Bewölkung"
@@ -105,6 +105,9 @@ full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 70 & full_Dataset$Wettercod
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 80 & full_Dataset$Wettercode <= 89] <- "Schauer"
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 90 & full_Dataset$Wettercode <= 99] <- "Gewitter"
 full_Dataset$Wettergruppe[is.na(full_Dataset$Wettercode)] <- "Nischt"
+
+#Niederschlag 1/0
+
 
 #Convert Dates to weekdays
 full_Dataset$Wochentag <- weekdays(full_Dataset$Datum)
