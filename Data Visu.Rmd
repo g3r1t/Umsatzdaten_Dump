@@ -1,0 +1,55 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+library(ggplot2)
+library(readr)
+
+full_Dataset <- read_csv("full_Dataset.csv", show_col_types = FALSE)
+full_Dataset <- subset(full_Dataset, Datum <= "2019-06-08")
+```
+
+
+```{r}
+# Load dataset from github
+full_Dataset$Datum <- as.Date(full_Dataset$Datum)
+
+Brot <- subset(full_Dataset, Warenname == "Brot")
+
+
+# Plot
+ggplot(subset(Brot, Datum >= "2018-05-01" & Datum <= "2018-06-01"), aes(x=Datum, y=Umsatz)) +
+  geom_line()+
+  geom_point(aes(color = as.factor(Wochentag), size = as.factor(Hamburg.Feiertage)))
+```
+```{r}
+#"Brot", "Brötchen", "Crossaint", "Konditorei", "Kuchen", "Saisonbrot")
+Brot <- subset(full_Dataset, Warenname == "Brot")
+Brötchen <- subset(full_Dataset, Warenname == "Brötchen")
+Crossaint <- subset(full_Dataset, Warenname == "Crossaint")
+Konditorei <- subset(full_Dataset, Warenname == "Konditorei")
+Kuchen <- subset(full_Dataset, Warenname == "Kuchen")
+
+Warensplit <- list(Brot, Brötchen, Crossaint, Konditorei, Kuchen)
+
+for (Ware in Warensplit)
+  SD <- sd(na.omit(Ware$Umsatz), na.rm = TRUE)
+  MEAN <- mean(na.omit(Ware$Umsatz))
+  full_Dataset <- full_Dataset[!(full_Dataset$Warenname == Ware$Warenname[1]) & (full_Dataset$Umsatz > MEAN+3*SD)]
+  full_Dataset <- full_Dataset[!(full_Dataset$Warenname == Ware$Warenname[1]) & (full_Dataset$Umsatz > MEAN-3*SD)]
+
+```
+
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.

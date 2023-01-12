@@ -113,8 +113,8 @@ full_Dataset$Wettergruppe[is.na(full_Dataset$Wettercode)] <- "Nischt"
 full_Dataset$Wochentag <- weekdays(full_Dataset$Datum)
 
 #Add Warengruppe for the "to be predicted"-dates
-a <- as.data.frame(c(1:5))
-b <- seq(as.Date("2019/06/09"), as.Date("2019/07/30"), by="day")
+a <- as.data.frame(c(1:5)) #create data frame containing each "Warengruppe"-number
+b <- seq(as.Date("2019/06/09"), as.Date("2019/07/30"), by="day") #create data frame of "to-be-predicted" time period
 c <- merge(a,b)
 colnames(c) <- c("Warengruppe", "Datum")
 c <- left_join(c, full_Dataset, by="Datum")
@@ -145,11 +145,24 @@ full_Dataset$Wochenende[full_Dataset$Wochentag != "Samstag" & full_Dataset$Woche
 #Add windchill Temp(https://de.wikipedia.org/wiki/Windchill)
 full_Dataset$Windchill <- 13.12 + 0.6215 * full_Dataset$Temperatur.x + (0.3965 * full_Dataset$Temperatur.x - 11.37) * ((full_Dataset$Windgeschwindigkeit.x*3600)/1000)**0.16
 
+#Add Brückentag
+#full_Dataset$Brueckentag <- 0
+#for (date in unique(full_Dataset$Datum))
+#  if (unique(full_Dataset$Hamburg.Feiertage[full_Dataset$Datum == date] == 1)) {
+#    full_Dataset$Brueckentag[full_Dataset$Datum == date+1] <- 1
+#  }
+
+###DATA ELIMINATION
 #drop data before there is data for "Umsatz" and after the "to-be-predicted time period
 full_Dataset <- filter(full_Dataset, Datum >= "2013-07-01")
 full_Dataset <- filter(full_Dataset, Datum <= "2019-07-30")
 full_Dataset <- subset(full_Dataset, Warengruppe != "NA")
 full_Dataset <- subset(full_Dataset, Warengruppe != "6") #No Saisonbrot in the predicted period
+full_Dataset <- subset(full_Dataset, Monat != "Dez" & mday(Datum) != 31) #Silvester fliegt aber mal sowas von raus
+
+#Ausreißer fliegen auch! Ausreißer = alle Umsätze mit einer Abweichung > 3 SD
+
+
 
 write.csv(full_Dataset, "full_Dataset.csv", row.names = FALSE)
 ```
@@ -162,3 +175,4 @@ ToDo:
 -Feiertage anders einbinden, jede Bundesland in einer Spalte ist..... nervig und schadet den Kosten
 -fix singularities
 -Silvester is an outlier
+Um Feiertage herum, aber nie an Feiertagen ist der Umsatz riesig
