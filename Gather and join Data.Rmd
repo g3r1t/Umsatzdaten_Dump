@@ -39,6 +39,9 @@ Feiertage <- read_csv("https://raw.githubusercontent.com/g3r1t/Umsatzdaten_Dump/
 Ferien <- read_csv("https://raw.githubusercontent.com/g3r1t/Umsatzdaten_Dump/main/Ferien.csv", 
                     show_col_types = FALSE)
 
+#remove outliers in turnover data
+
+
 #full join to keep all data points from turnoverdata and drop the redundant ones from kiwo
 full_Dataset <- full_join(turnover_data, kiwo, by = "Datum")
 
