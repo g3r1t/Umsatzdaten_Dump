@@ -42,6 +42,7 @@ Ferien <- read_csv("https://raw.githubusercontent.com/g3r1t/Umsatzdaten_Dump/mai
 #remove outliers in turnover data
 
 
+
 #full join to keep all data points from turnoverdata and drop the redundant ones from kiwo
 full_Dataset <- full_join(turnover_data, kiwo, by = "Datum")
 
@@ -148,25 +149,33 @@ full_Dataset$Wochenende[full_Dataset$Wochentag != "Samstag" & full_Dataset$Woche
 #Add windchill Temp(https://de.wikipedia.org/wiki/Windchill)
 full_Dataset$Windchill <- 13.12 + 0.6215 * full_Dataset$Temperatur.x + (0.3965 * full_Dataset$Temperatur.x - 11.37) * ((full_Dataset$Windgeschwindigkeit.x*3600)/1000)**0.16
 
-#Add Brückentag
-#full_Dataset$Brueckentag <- 0
-#for (date in unique(full_Dataset$Datum))
-#  if (unique(full_Dataset$Hamburg.Feiertage[full_Dataset$Datum == date] == 1)) {
-#    full_Dataset$Brueckentag[full_Dataset$Datum == date+1] <- 1
-#  }
-
 ###DATA ELIMINATION
 #drop data before there is data for "Umsatz" and after the "to-be-predicted time period
 full_Dataset <- filter(full_Dataset, Datum >= "2013-07-01")
 full_Dataset <- filter(full_Dataset, Datum <= "2019-07-30")
+
 full_Dataset <- subset(full_Dataset, Warengruppe != "NA")
 full_Dataset <- subset(full_Dataset, Warengruppe != "6") #No Saisonbrot in the predicted period
-full_Dataset <- subset(full_Dataset, Monat != "Dez" & mday(Datum) != 31) #Silvester fliegt aber mal sowas von raus
+full_Dataset <- subset(full_Dataset, !(Monat == "Dez" & mday(Datum) == 31)) #Silvester fliegt aber mal sowas von raus
 
-#Ausreißer fliegen auch! Ausreißer = alle Umsätze mit einer Abweichung > 3 SD
+#Ausreißer fliegen auch! Ausreißer = alle Umsätze mit einer Abweichung > 2 SD
+#"Brot", "Brötchen", "Crossaint", "Konditorei", "Kuchen")
+Brot <- subset(full_Dataset, Warenname == "Brot")
+Brötchen <- subset(full_Dataset, Warenname == "Brötchen")
+Crossaint <- subset(full_Dataset, Warenname == "Crossaint")
+Konditorei <- subset(full_Dataset, Warenname == "Konditorei")
+Kuchen <- subset(full_Dataset, Warenname == "Kuchen")
+
+Warensplit <- list(Brot, Brötchen, Crossaint, Konditorei, Kuchen)
+
+for (Ware in Warensplit)
+  SD <- sd(na.omit(Ware$Umsatz), na.rm = TRUE)
+  MEAN <- mean(na.omit(Ware$Umsatz))
+  full_Dataset <- subset(full_Dataset, !(Warenname == Ware$Warenname[1] & full_Dataset$Umsatz > MEAN+2*SD))
+  full_Dataset <- subset(full_Dataset, !(Warenname == Ware$Warenname[1] & full_Dataset$Umsatz > MEAN+2*SD))
 
 
-
+###SAVE TO CSV EASIER AND FASTER DATA IMPORT IN PROJECT "UMSATZVORHERSAGE"
 write.csv(full_Dataset, "full_Dataset.csv", row.names = FALSE)
 ```
 

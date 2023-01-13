@@ -16,6 +16,7 @@ full_Dataset <- subset(full_Dataset, Datum <= "2019-06-08")
 ```
 
 
+
 ```{r}
 # Load dataset from github
 full_Dataset$Datum <- as.Date(full_Dataset$Datum)
@@ -24,26 +25,9 @@ Brot <- subset(full_Dataset, Warenname == "Brot")
 
 
 # Plot
-ggplot(subset(Brot, Datum >= "2018-05-01" & Datum <= "2018-06-01"), aes(x=Datum, y=Umsatz)) +
+ggplot(Brot, aes(x=Datum, y=Umsatz)) +
   geom_line()+
   geom_point(aes(color = as.factor(Wochentag), size = as.factor(Hamburg.Feiertage)))
-```
-```{r}
-#"Brot", "Brötchen", "Crossaint", "Konditorei", "Kuchen", "Saisonbrot")
-Brot <- subset(full_Dataset, Warenname == "Brot")
-Brötchen <- subset(full_Dataset, Warenname == "Brötchen")
-Crossaint <- subset(full_Dataset, Warenname == "Crossaint")
-Konditorei <- subset(full_Dataset, Warenname == "Konditorei")
-Kuchen <- subset(full_Dataset, Warenname == "Kuchen")
-
-Warensplit <- list(Brot, Brötchen, Crossaint, Konditorei, Kuchen)
-
-for (Ware in Warensplit)
-  SD <- sd(na.omit(Ware$Umsatz), na.rm = TRUE)
-  MEAN <- mean(na.omit(Ware$Umsatz))
-  full_Dataset <- full_Dataset[!(full_Dataset$Warenname == Ware$Warenname[1]) & (full_Dataset$Umsatz > MEAN+3*SD)]
-  full_Dataset <- full_Dataset[!(full_Dataset$Warenname == Ware$Warenname[1]) & (full_Dataset$Umsatz > MEAN-3*SD)]
-
 ```
 
 
