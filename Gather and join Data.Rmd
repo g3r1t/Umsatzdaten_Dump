@@ -39,10 +39,6 @@ Feiertage <- read_csv("https://raw.githubusercontent.com/g3r1t/Umsatzdaten_Dump/
 Ferien <- read_csv("https://raw.githubusercontent.com/g3r1t/Umsatzdaten_Dump/main/Ferien.csv", 
                     show_col_types = FALSE)
 
-#remove outliers in turnover data
-
-
-
 #full join to keep all data points from turnoverdata and drop the redundant ones from kiwo
 full_Dataset <- full_join(turnover_data, kiwo, by = "Datum")
 
@@ -61,6 +57,8 @@ full_Dataset$Temperatur.x[is.na(full_Dataset$Temperatur.x)] <- full_Dataset$Temp
 full_Dataset$Windgeschwindigkeit.x[is.na(full_Dataset$Windgeschwindigkeit.x)] <- full_Dataset$Windgeschwindigkeit.y[is.na(full_Dataset$Windgeschwindigkeit.x)]
 
 full_Dataset$Bewoelkung[is.na(full_Dataset$Bewoelkung)] <- full_Dataset$Bedeckungsgrad[is.na(full_Dataset$Bewoelkung)]
+
+full_Dataset$Bewoelkung <- round(full_Dataset$Bewoelkung)
 
 #Create Column Monatscode to full_join tourism data with full_Dataset
 for (e in as.numeric(row.names(full_Dataset))) {
@@ -97,7 +95,7 @@ colnames(weather_codes)[1] <- "Wettercode"#rename first column to for full_join 
 full_Dataset <- full_join(full_Dataset, weather_codes, by = "Wettercode")
 
 #Group Weathercodes
-full_Dataset$Wettergruppe[full_Dataset$Wettercode <= 3] <- "?Bewölkung"
+full_Dataset$Wettergruppe[full_Dataset$Wettercode <= 3] <- "Bewölkung"
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 4 & full_Dataset$Wettercode <= 9] <- "Dunst, Rauch, Staub oder Sand"
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 10 & full_Dataset$Wettercode <= 19] <- "Trockenereignisse"
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 20 & full_Dataset$Wettercode <= 29] <- "Ereignisse der letzten Stunde, aber nicht zur Beobachtungszeit"
@@ -110,7 +108,7 @@ full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 80 & full_Dataset$Wettercod
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 90 & full_Dataset$Wettercode <= 99] <- "Gewitter"
 full_Dataset$Wettergruppe[is.na(full_Dataset$Wettercode)] <- "Nischt"
 
-#Niederschlag 1/0
+full_Dataset <- subset(full_Dataset, Bewoelkung != -999)
 
 
 #Convert Dates to weekdays
@@ -173,10 +171,50 @@ for (Ware in Warensplit)
   MEAN <- mean(na.omit(Ware$Umsatz))
   full_Dataset <- subset(full_Dataset, !(Warenname == Ware$Warenname[1] & full_Dataset$Umsatz > MEAN+2*SD))
   full_Dataset <- subset(full_Dataset, !(Warenname == Ware$Warenname[1] & full_Dataset$Umsatz > MEAN+2*SD))
+  
+###Drop useless columns
+full_Dataset[ , c('Wettercode',
+                'Windgeschwindigkeit.y',
+                'Temperatur.y',
+                'Monatscode',
+                'Bedeckungsgrad', 
+                'Dampfdruck',
+                "Luftdruck",
+                "Wettererscheinung oder -zustand",
+                "Baden-Wuerttemberg.Feiertage",
+                "Bayern.Feiertage",
+                "Berlin.Feiertage",
+                "Brandenburg.Feiertage",
+                "Bremen.Feiertage",
+                "Hamburg.Feiertage",
+                "Hessen.Feiertage",
+                "Mecklenburg-Vorpommern.Feiertage",
+                "Niedersachsen.Feiertage",
+                "Nordrhein-Westfalen.Feiertage",
+                "Rheinland-Pfalz.Feiertage",
+                "Saarland.Feiertage",
+                "Sachsen.Feiertage",
+                "Sachsen-Anhalt.Feiertage",
+                "Thueringen.Feiertage"
+                )] <- list(NULL)
+colnames(full_Dataset)[6] <- "Temperatur"
+colnames(full_Dataset)[7] <- "Windgeschwindigkeit"
+
+
 
 
 ###SAVE TO CSV EASIER AND FASTER DATA IMPORT IN PROJECT "UMSATZVORHERSAGE"
 write.csv(full_Dataset, "full_Dataset.csv", row.names = FALSE)
+```
+
+
+```{r}
+mod <- lm(formula = Umsatz ~ as.factor(Warengruppe) + as.factor(KielerWoche) + as.factor(Bewoelkung) +
+                            Sonnenscheindauer + Uebernachtungen + Ankuenfte + Aufenthaltsdauer  +
+                            as.factor(Wochentag) + as.factor(Monat) + as.factor(KalenderWoche) + as.factor(Wochenende),
+                            data = full_Dataset)
+
+summary(mod)
 ```
 
 
