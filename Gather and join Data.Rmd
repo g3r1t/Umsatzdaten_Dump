@@ -155,22 +155,6 @@ full_Dataset <- filter(full_Dataset, Datum <= "2019-07-30")
 full_Dataset <- subset(full_Dataset, Warengruppe != "NA")
 full_Dataset <- subset(full_Dataset, Warengruppe != "6") #No Saisonbrot in the predicted period
 full_Dataset <- subset(full_Dataset, !(Monat == "Dez" & mday(Datum) == 31)) #Silvester fliegt aber mal sowas von raus
-
-#Ausreißer fliegen auch! Ausreißer = alle Umsätze mit einer Abweichung > 2 SD
-#"Brot", "Brötchen", "Crossaint", "Konditorei", "Kuchen")
-Brot <- subset(full_Dataset, Warenname == "Brot")
-Brötchen <- subset(full_Dataset, Warenname == "Brötchen")
-Crossaint <- subset(full_Dataset, Warenname == "Crossaint")
-Konditorei <- subset(full_Dataset, Warenname == "Konditorei")
-Kuchen <- subset(full_Dataset, Warenname == "Kuchen")
-
-Warensplit <- list(Brot, Brötchen, Crossaint, Konditorei, Kuchen)
-
-for (Ware in Warensplit)
-  SD <- sd(na.omit(Ware$Umsatz), na.rm = TRUE)
-  MEAN <- mean(na.omit(Ware$Umsatz))
-  full_Dataset <- subset(full_Dataset, !(Warenname == Ware$Warenname[1] & full_Dataset$Umsatz > MEAN+2*SD))
-  full_Dataset <- subset(full_Dataset, !(Warenname == Ware$Warenname[1] & full_Dataset$Umsatz > MEAN+2*SD))
   
 ###Drop useless columns
 full_Dataset[ , c('Wettercode',
@@ -216,6 +200,28 @@ mod <- lm(formula = Umsatz ~ as.factor(Warengruppe) + as.factor(KielerWoche) + a
 
 summary(mod)
 ```
+
+
+
+
+```{r}
+#Ausreißer fliegen auch! Ausreißer = alle Umsätze mit einer Abweichung > 2 SD
+#"Brot", "Brötchen", "Crossaint", "Konditorei", "Kuchen")
+#Brot <- subset(full_Dataset, Warenname == "Brot")
+#Brötchen <- subset(full_Dataset, Warenname == "Brötchen")
+#Crossaint <- subset(full_Dataset, Warenname == "Crossaint")
+#Konditorei <- subset(full_Dataset, Warenname == "Konditorei")
+#Kuchen <- subset(full_Dataset, Warenname == "Kuchen")
+
+#Warensplit <- list(Brot, Brötchen, Crossaint, Kuchen, Konditorei)
+
+#for (Ware in Warensplit)
+#  SD <- sd(na.omit(Ware$Umsatz), na.rm = TRUE)
+#  MEAN <- mean(na.omit(Ware$Umsatz))
+#  full_Dataset <- subset(full_Dataset, !(Warenname == Ware$Warenname[1] & full_Dataset$Umsatz > MEAN+2*SD))
+#  full_Dataset <- subset(full_Dataset, !(Warenname == Ware$Warenname[1] & full_Dataset$Umsatz > MEAN+2*SD))
+```
+
 
 
 ToDo:
