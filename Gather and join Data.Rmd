@@ -125,6 +125,9 @@ c <- c[-1]
 colnames(c)[2] <- "Warengruppe"
 full_Dataset <- rbind(full_Dataset, c)
 
+#Add holiday-densitiy
+full_Dataset$Feriendichte <- rowSums(select(full_Dataset, "Baden-Wuerttemberg.Ferien":"Thueringen.Ferien"))
+
 
 # Create vector of product names
 Warenname <- c("Brot", "Brötchen", "Crossaint", "Konditorei", "Kuchen", "Saisonbrot")
@@ -194,7 +197,7 @@ write.csv(full_Dataset, "full_Dataset.csv", row.names = FALSE)
 
 ```{r}
 mod <- lm(formula = Umsatz ~ as.factor(Warengruppe) + as.factor(KielerWoche) + as.factor(Bewoelkung) +
-                            Sonnenscheindauer + Uebernachtungen + Ankuenfte + Aufenthaltsdauer  +
+                            Sonnenscheindauer + Uebernachtungen + Ankuenfte + Aufenthaltsdauer  + as.factor(Feriendichte)+
                             as.factor(Wochentag) + as.factor(Monat) + as.factor(KalenderWoche) + as.factor(Wochenende),
                             data = full_Dataset)
 
