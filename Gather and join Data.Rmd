@@ -52,10 +52,10 @@ Rausschmeißer <- rbind(Rausschmeißer, turnover) }
 turnover_data <- Rausschmeißer
 
 
-#full join to keep all data points from turnoverdata and drop the redundant ones from kiwo
+#full join to keep all data points from turnoverdata and kiwo
 full_Dataset <- full_join(turnover_data, kiwo, by = "Datum")
 
-#again full join to only keep data points with turnover
+#full join to to keep all observations
 full_Dataset <- full_join(full_Dataset, weather, by = "Datum")
 
 #change "Datum"-column of weatherDWD to date-format
@@ -108,6 +108,7 @@ colnames(weather_codes)[1] <- "Wettercode"#rename first column to for full_join 
 full_Dataset <- full_join(full_Dataset, weather_codes, by = "Wettercode")
 
 #Group Weathercodes
+#https://wetterkanal.kachelmannwetter.com/was-ist-der-ww-code-in-der-meteorologie/  
 full_Dataset$Wettergruppe[full_Dataset$Wettercode <= 3] <- "Bewölkung"
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 4 & full_Dataset$Wettercode <= 9] <- "Dunst, Rauch, Staub oder Sand"
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 10 & full_Dataset$Wettercode <= 19] <- "Trockenereignisse"
@@ -121,13 +122,14 @@ full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 80 & full_Dataset$Wettercod
 full_Dataset$Wettergruppe[full_Dataset$Wettercode >= 90 & full_Dataset$Wettercode <= 99] <- "Gewitter"
 full_Dataset$Wettergruppe[is.na(full_Dataset$Wettercode)] <- "Nischt"
 
-full_Dataset <- subset(full_Dataset, Bewoelkung != -999)
+full_Dataset <- subset(full_Dataset, Bewoelkung != -999) # drop nonsensical data
 
 
 #Convert Dates to weekdays
 full_Dataset$Wochentag <- weekdays(full_Dataset$Datum)
 
-#Add Warengruppe for the "to be predicted"-dates
+
+#Add Warengruppe for the "to be predicted"-dates since its missing in turnover-data
 a <- as.data.frame(c(1:5)) #create data frame containing each "Warengruppe"-number
 b <- seq(as.Date("2019/06/09"), as.Date("2019/07/30"), by="day") #create data frame of "to-be-predicted" time period
 c <- merge(a,b)
@@ -142,26 +144,32 @@ full_Dataset <- rbind(full_Dataset, c)
 full_Dataset$Feriendichte <- rowSums(select(full_Dataset, "Baden-Wuerttemberg.Ferien":"Thueringen.Ferien"))
 
 
+
+#Convert Warengruppe to Warenname
 # Create vector of product names
 Warenname <- c("Brot", "Brötchen", "Crossaint", "Konditorei", "Kuchen", "Saisonbrot")
 
-#Convert Warengruppe to Warenname
 #for each "Warengruppe"-number at position "[e]" a new row entry in column "Warenname" is created. This works bcs the index of the "Warengruppenname" in the vector corresponds with the number of "Warengruppe".
 for (e in as.numeric(row.names(full_Dataset))) #enumerate Dataframe, since row.names returns a string
   full_Dataset$Warenname[e] <- Warenname[as.numeric(full_Dataset$Warengruppe[e])]
 
+
 #Add month variable
 full_Dataset$Monat <- month(full_Dataset$Datum, label = TRUE)
 
+
 #Add calendar week variable
 full_Dataset$KalenderWoche <- strftime(full_Dataset$Datum, format = "%V")
+
 
 #Add Wochenende create boolean value for all days == Samstag | Sonntag and for all day != Samstag & Sonntag
 full_Dataset$Wochenende[full_Dataset$Wochentag == "Samstag" | full_Dataset$Wochentag == "Sonntag"] <- 1
 full_Dataset$Wochenende[full_Dataset$Wochentag != "Samstag" & full_Dataset$Wochentag != "Sonntag"] <- 0
 
+
 #Add windchill Temp(https://de.wikipedia.org/wiki/Windchill)
 full_Dataset$Windchill <- 13.12 + 0.6215 * full_Dataset$Temperatur.x + (0.3965 * full_Dataset$Temperatur.x - 11.37) * ((full_Dataset$Windgeschwindigkeit.x*3600)/1000)**0.16
+
 
 ###DATA ELIMINATION
 #drop data before there is data for "Umsatz" and after the "to-be-predicted time period
@@ -171,6 +179,7 @@ full_Dataset <- filter(full_Dataset, Datum <= "2019-07-30")
 full_Dataset <- subset(full_Dataset, Warengruppe != "NA")
 full_Dataset <- subset(full_Dataset, Warengruppe != "6") #No Saisonbrot in the predicted period
 full_Dataset <- subset(full_Dataset, !(Monat == "Dez" & mday(Datum) == 31)) #Silvester fliegt aber mal sowas von raus
+full_Dataset <- subset(full_Dataset, !(Monat == "Dez" & mday(Datum) == 24)) #und Weihnachten erst recht.... Ostern?
   
 ###Drop useless columns
 full_Dataset[ , c('Wettercode',
@@ -197,18 +206,17 @@ full_Dataset[ , c('Wettercode',
                 "Sachsen-Anhalt.Feiertage",
                 "Thueringen.Feiertage"
                 )] <- list(NULL)
-colnames(full_Dataset)[6] <- "Temperatur"
+colnames(full_Dataset)[6] <- "Temperatur" #Both have ugly suffixes from joining the 2 different weather datasets before
 colnames(full_Dataset)[7] <- "Windgeschwindigkeit"
 
 
-
-
-###SAVE TO CSV EASIER AND FASTER DATA IMPORT IN PROJECT "UMSATZVORHERSAGE"
+###SAVE TO CSV FOR EASIER AND FASTER DATA IMPORT IN PROJECT "UMSATZVORHERSAGE"
 write.csv(full_Dataset, "full_Dataset.csv", row.names = FALSE)
 ```
 
 
 ```{r}
+#Calculate linear model to judge variable quality
 mod <- lm(formula = Umsatz ~ as.factor(Warengruppe) + as.factor(KielerWoche) + as.factor(Bewoelkung) +
                             Sonnenscheindauer + Uebernachtungen + Ankuenfte + Aufenthaltsdauer  + as.factor(Feriendichte)+
                             as.factor(Wochentag) + as.factor(Monat) + as.factor(KalenderWoche) + as.factor(Wochenende) + as.factor(Wettergruppe),
@@ -216,14 +224,3 @@ mod <- lm(formula = Umsatz ~ as.factor(Warengruppe) + as.factor(KielerWoche) + a
 
 summary(mod)
 ```
-
-
-
-ToDo:
--VariablenTyp checken -> z.B. KW=factor Variable
--Temperatur Chaos lösen, scheinbar ist Temperatur und Windgeschwindigkeit aus weather=max. Temperatur und Windgeschwindigkeit vom DWD aber Durschnitt
--Saisonbrot gibt es nur von Oktober bis Januar
--Feiertage anders einbinden, jede Bundesland in einer Spalte ist..... nervig und schadet den Kosten
--fix singularities
--Silvester is an outlier
-Um Feiertage herum, aber nie an Feiertagen ist der Umsatz riesig
